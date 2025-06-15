@@ -1,13 +1,31 @@
-"use client"
-import { Search, ShoppingCart, User } from "lucide-react"
+"use client";
+import { Search, ShoppingCart, User } from "lucide-react";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { SidebarTrigger } from "@/components/ui/sidebar"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { SidebarTrigger } from "@/components/ui/sidebar";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
+import { useDebouncedCallback } from "use-debounce";
 
-export default function Navbar({ searchQuery, onSearchChange, cartItemCount = 0 }) {
+export default function Navbar() {
+  const searchParams = useSearchParams();
+  const pathName = usePathname();
+  const { replace } = useRouter();
+
+  const cartItemCount = 0
+
+  const handleChange = useDebouncedCallback((term) => {
+    const params = new URLSearchParams(searchParams);
+    if (term) {
+      params.set("query", term);
+    } else {
+      params.delete("query");
+    }
+    replace(`${pathName}?${params.toString()}`);
+  }, 1000);
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between px-4">
@@ -16,9 +34,13 @@ export default function Navbar({ searchQuery, onSearchChange, cartItemCount = 0 
           <SidebarTrigger className="lg:hidden" />
           <div className="flex items-center space-x-2">
             <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-sm">E</span>
+              <span className="text-primary-foreground font-bold text-sm">
+                E
+              </span>
             </div>
-            <span className="font-bold text-xl hidden sm:inline-block">EcomStore</span>
+            <span className="font-bold text-xl hidden sm:inline-block">
+              EcomStore
+            </span>
           </div>
         </div>
 
@@ -29,8 +51,8 @@ export default function Navbar({ searchQuery, onSearchChange, cartItemCount = 0 
             <Input
               type="search"
               placeholder="Search products..."
-              value={searchQuery}
-              onChange={(e) => onSearchChange(e.target.value)}
+              defaultValue={searchParams.get("query") || ""}
+              onChange={(e) => handleChange(e.target.value)}
               className="pl-10 pr-4 w-full"
             />
           </div>
@@ -41,9 +63,7 @@ export default function Navbar({ searchQuery, onSearchChange, cartItemCount = 0 
           <Button variant="ghost" size="icon" className="relative">
             <ShoppingCart className="h-5 w-5" />
             {cartItemCount > 0 && (
-              <Badge
-                className="absolute -top-2 -right-2 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs"
-              >
+              <Badge className="absolute -top-2 -right-2 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs">
                 {cartItemCount}
               </Badge>
             )}
@@ -62,5 +82,5 @@ export default function Navbar({ searchQuery, onSearchChange, cartItemCount = 0 
         </div>
       </div>
     </header>
-  )
+  );
 }

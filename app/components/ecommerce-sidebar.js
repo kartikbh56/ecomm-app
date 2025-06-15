@@ -16,14 +16,16 @@ import {
   SidebarHeader,
 } from "@/components/ui/sidebar"
 
-const categories = [
-  { id: "electronics", label: "Electronics", count: 245 },
-  { id: "clothing", label: "Clothing & Fashion", count: 189 },
-  { id: "home", label: "Home & Garden", count: 156 },
-  { id: "sports", label: "Sports & Outdoors", count: 98 },
-  { id: "books", label: "Books & Media", count: 67 },
-  { id: "toys", label: "Toys & Games", count: 45 },
-]
+import { useState, useEffect } from "react"
+
+// const categories = [
+//   { id: "electronics", label: "Electronics", count: 245 },
+//   { id: "clothing", label: "Clothing & Fashion", count: 189 },
+//   { id: "home", label: "Home & Garden", count: 156 },
+//   { id: "sports", label: "Sports & Outdoors", count: 98 },
+//   { id: "books", label: "Books & Media", count: 67 },
+//   { id: "toys", label: "Toys & Games", count: 45 },
+// ]
 
 const brands = [
   { id: "apple", label: "Apple", count: 34 },
@@ -43,6 +45,16 @@ export function EcommerceSidebar({
   onPriceRangeChange,
   onClearFilters,
 }) {
+
+  const [categories, setCategories] = useState([]);
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const response = await fetch('https://dummyjson.com/products/category-list');
+      const data = await response.json();
+      setCategories(data.map((category) => ({ id: category, label: category })));
+    };
+    fetchCategories();
+  }, []);
   return (
     <Sidebar className="border-r">
       <SidebarHeader className="border-b p-4">
@@ -76,7 +88,6 @@ export function EcommerceSidebar({
                   <Label htmlFor={category.id} className="text-sm font-normal cursor-pointer flex-1">
                     {category.label}
                   </Label>
-                  <span className="text-xs text-muted-foreground">({category.count})</span>
                 </div>
               ))}
             </div>

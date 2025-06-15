@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { EcommerceSidebar } from "./ecommerce-sidebar";
 import Navbar from "./navbar";
+import Footer from "./Footer";
 
 export function EcommerceLayout({ children }) {
   const router = useRouter();
@@ -77,27 +78,23 @@ export function EcommerceLayout({ children }) {
 
   return (
     <SidebarProvider>
-      <React.Suspense>
-        <EcommerceSidebar
-          selectedCategories={selectedCategories}
-          selectedBrands={selectedBrands}
-          priceRange={priceRange}
-          onCategoryChange={handleCategoryChange}
-          onBrandChange={handleBrandChange}
-          onPriceRangeChange={handlePriceRangeChange}
-          onClearFilters={clearAllFilters}
+      <EcommerceSidebar
+        selectedCategories={selectedCategories}
+        selectedBrands={selectedBrands}
+        priceRange={priceRange}
+        onCategoryChange={handleCategoryChange}
+        onBrandChange={handleBrandChange}
+        onPriceRangeChange={handlePriceRangeChange}
+        onClearFilters={clearAllFilters}
+      />
+      <SidebarInset>
+        <Navbar
+          searchQuery={searchQuery}
+          onSearchChange={handleSearchChange}
+          cartItemCount={cartItemCount}
         />
-        <SidebarInset>
-          <React.Suspense>
-            <Navbar
-              searchQuery={searchQuery}
-              onSearchChange={handleSearchChange}
-              cartItemCount={cartItemCount}
-            />
-          </React.Suspense>
-          {children}
-        </SidebarInset>
-      </React.Suspense>
+        {children}
+      </SidebarInset>
     </SidebarProvider>
   );
 }

@@ -19,9 +19,9 @@ export default function Navbar() {
   const handleChange = useDebouncedCallback((term) => {
     const params = new URLSearchParams(searchParams);
     if (term) {
-      params.set("query", term);
+      params.set("q", term);
     } else {
-      params.delete("query");
+      params.delete("q");
     }
     replace(`${pathName}?${params.toString()}`);
   }, 1000);
@@ -51,7 +51,7 @@ export default function Navbar() {
             <Input
               type="search"
               placeholder="Search products..."
-              defaultValue={searchParams.get("query") || ""}
+              defaultValue={searchParams.get("q") || ""}
               onChange={(e) => handleChange(e.target.value)}
               className="pl-10 pr-4 w-full"
             />

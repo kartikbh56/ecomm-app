@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { EcommerceLayout } from "./components/ecommerce-layout";
+import { Suspense } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,9 +24,11 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <EcommerceLayout>
-          {children}
-        </EcommerceLayout>
+        <Suspense>
+          <EcommerceLayout>
+            {children}
+          </EcommerceLayout>
+        </Suspense>
       </body>
     </html>
   );

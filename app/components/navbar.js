@@ -6,12 +6,11 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import { usePathname, useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
 
 export default function Navbar() {
   const searchParams = useSearchParams();
-  const pathName = usePathname();
   const { replace } = useRouter();
 
   const cartItemCount = 0
@@ -23,7 +22,7 @@ export default function Navbar() {
     } else {
       params.delete("q");
     }
-    replace(`${pathName}?${params.toString()}`);
+    replace(`${"/"}?${params.toString()}`);
   }, 1000);
 
   return (

@@ -1,4 +1,4 @@
-import { ProductCard } from "./components/product-card";
+import { ProductCard } from "../components/product-card";
 
 export default async function HomePage({ searchParams }) {
   const {
@@ -12,7 +12,7 @@ export default async function HomePage({ searchParams }) {
 
   // Fetch all products (since dummyjson doesn't support real filter queries)
   const products = await fetch(
-    `https://dummyjson.com/products/search?${q ? `q=${q}` : ""}&sortBy=rating&order=desc&limit=150&select=title,price,thumbnail,rating,category`
+    `https://dummyjson.com/products/search?${q ? `q=${q}` : ""}&sortBy=rating&order=desc&limit=150&select=title,price,thumbnail,rating,category,brand,availabilityStatus,discountPercentage`
   )
     .then(res => res.json())
     .then(data => {

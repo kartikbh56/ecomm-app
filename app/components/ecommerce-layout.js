@@ -21,8 +21,6 @@ export function EcommerceLayout({ children }) {
   const [selectedCategories, setSelectedCategories] = React.useState(getArrayParam("categories"));
   const [selectedBrands, setSelectedBrands] = React.useState(getArrayParam("brands"));
   const [priceRange, setPriceRange] = React.useState(getPriceParam());
-  const [searchQuery, setSearchQuery] = React.useState(searchParams.get("q") || "");
-  const cartItemCount = 3;
 
   const updateURLParams = (params) => {
     const updated = new URLSearchParams(searchParams.toString());
@@ -63,11 +61,6 @@ export function EcommerceLayout({ children }) {
     updateURLParams({ min: range[0], max: range[1] });
   };
 
-  const handleSearchChange = (query) => {
-    setSearchQuery(query);
-    updateURLParams({ q: query });
-  };
-
   const clearAllFilters = () => {
     setSelectedCategories([]);
     setSelectedBrands([]);
@@ -77,27 +70,19 @@ export function EcommerceLayout({ children }) {
 
   return (
     <SidebarProvider>
-      <React.Suspense>
-        <EcommerceSidebar
-          selectedCategories={selectedCategories}
-          selectedBrands={selectedBrands}
-          priceRange={priceRange}
-          onCategoryChange={handleCategoryChange}
-          onBrandChange={handleBrandChange}
-          onPriceRangeChange={handlePriceRangeChange}
-          onClearFilters={clearAllFilters}
-        />
-        <SidebarInset>
-          <React.Suspense>
-            <Navbar
-              searchQuery={searchQuery}
-              onSearchChange={handleSearchChange}
-              cartItemCount={cartItemCount}
-            />
-          </React.Suspense>
-          {children}
-        </SidebarInset>
-      </React.Suspense>
+      <EcommerceSidebar
+        selectedCategories={selectedCategories}
+        selectedBrands={selectedBrands}
+        priceRange={priceRange}
+        onCategoryChange={handleCategoryChange}
+        onBrandChange={handleBrandChange}
+        onPriceRangeChange={handlePriceRangeChange}
+        onClearFilters={clearAllFilters}
+      />
+      <SidebarInset>
+        <Navbar/>
+        {children}
+      </SidebarInset>
     </SidebarProvider>
   );
 }

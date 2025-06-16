@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Ecomm App
+
+A modern, responsive e-commerce web application built with [Next.js](https://nextjs.org), React, and Tailwind CSS. This project features advanced product filtering, a clean UI, and modular component architecture, making it a great starting point for any online store or e-commerce prototype.
+
+## Features
+
+- Product listing with advanced filtering (search, category, price range)
+- Responsive design with mobile-first layout
+- Modular UI components using Radix UI and custom elements
+- Fast performance with Next.js 15 and React 19
+- Easy customization and extension
+
+## Tech Stack
+
+- **Framework:** Next.js 15 (App Router)
+- **UI:** React 19, Tailwind CSS 4, Radix UI
+- **Icons:** Lucide React
+- **Utilities:** class-variance-authority, clsx, use-debounce
+
+## Folder Structure
+
+```
+app/
+  (home)/           # Home page route
+  components/       # Core layout, navbar, sidebar, product card, etc.
+  product/          # Dynamic product detail pages
+  layout.js         # Root layout for the app
+  globals.css       # Global styles
+components/
+  ui/               # Reusable UI primitives (button, input, card, etc.)
+public/             # Static assets (images, favicon)
+```
 
 ## Getting Started
 
-First, run the development server:
+1. **Install dependencies:**
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+2. **Run the development server:**
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. **Open your browser:**
+   Visit [http://localhost:3000](http://localhost:3000) to view the app.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Customization
+- Edit `app/components/` and `components/ui/` to modify layout or UI elements.
+- Product data is fetched from [dummyjson.com](https://dummyjson.com/products), but you can change the API endpoint in `app/(home)/page.js`.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Deployment
+Deploy easily with [Vercel](https://vercel.com/) or any platform supporting Next.js.
 
-## Learn More
+## License
+MIT
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+> Built with ❤️ using Next.js
